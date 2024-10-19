@@ -1,5 +1,6 @@
 alabaster==1.0.0
 babel==2.16.0
+build==1.2.2.post1
 certifi==2024.8.30
 charset-normalizer==3.4.0
 docutils==0.21.2
@@ -12,6 +13,7 @@ MarkupSafe==3.0.2
 packaging==24.1
 pluggy==1.5.0
 Pygments==2.18.0
+pyproject_hooks==1.2.0
 pytest==8.3.3
 requests==2.32.3
 snowballstemmer==2.2.0
