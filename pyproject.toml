@@ -1,0 +1,19 @@
+[project]
+name = "minpycube"
+version = "0.1.0"
+description = "A minimal Python library for Rubik's Cube simulation."
+authors = [
+    {name = "mennymendoza", email = "jmen9575@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.pdm]
+distribution = true
