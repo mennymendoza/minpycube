@@ -30,11 +30,7 @@ RESET_COLOR = "\033[00m"
 
 class RCube:
     def __init__(self):
-        self.cube_mat = [
-            [F, F, F, R, R, R, B, B, B, L, L, L, U, U, U, D, D, D],
-            [F, F, F, R, R, R, B, B, B, L, L, L, U, U, U, D, D, D],
-            [F, F, F, R, R, R, B, B, B, L, L, L, U, U, U, D, D, D],
-        ]
+        self.reset()
         self.op_function_map = {
             "U": self.__op_u,
             "-U": self.__op_u_reverse,
@@ -58,132 +54,124 @@ class RCube:
 
     def __rotatef_cc(self, face):
         """Rotate Face Counter-Clockwise"""
-        base = face * 3
-        temp1 = self.cube_mat[0][base]
-        temp2 = self.cube_mat[0][base + 1]
-        self.cube_mat[0][base] = self.cube_mat[0][base + 2]
-        self.cube_mat[0][base + 1] = self.cube_mat[1][base + 2]
-        self.cube_mat[0][base + 2] = self.cube_mat[2][base + 2]
-        self.cube_mat[1][base + 2] = self.cube_mat[2][base + 1]
-        self.cube_mat[2][base + 2] = self.cube_mat[2][base]
-        self.cube_mat[2][base + 1] = self.cube_mat[1][base]
-        self.cube_mat[2][base] = temp1
-        self.cube_mat[1][base] = temp2
+        temp1 = self.cube_mat[0][face][0]
+        temp2 = self.cube_mat[0][face][1]
+        self.cube_mat[0][face][0] = self.cube_mat[0][face][2]
+        self.cube_mat[0][face][1] = self.cube_mat[1][face][2]
+        self.cube_mat[0][face][2] = self.cube_mat[2][face][2]
+        self.cube_mat[1][face][2] = self.cube_mat[2][face][1]
+        self.cube_mat[2][face][2] = self.cube_mat[2][face][0]
+        self.cube_mat[2][face][1] = self.cube_mat[1][face][0]
+        self.cube_mat[2][face][0] = temp1
+        self.cube_mat[1][face][0] = temp2
 
     def __rotatef_c(self, face):
         """Rotate Face Clockwise"""
-        base = face * 3
-        temp1 = self.cube_mat[0][base]
-        temp2 = self.cube_mat[1][base]
-        self.cube_mat[0][base] = self.cube_mat[2][base]
-        self.cube_mat[1][base] = self.cube_mat[2][base + 1]
-        self.cube_mat[2][base] = self.cube_mat[2][base + 2]
-        self.cube_mat[2][base + 1] = self.cube_mat[1][base + 2]
-        self.cube_mat[2][base + 2] = self.cube_mat[0][base + 2]
-        self.cube_mat[1][base + 2] = self.cube_mat[0][base + 1]
-        self.cube_mat[0][base + 2] = temp1
-        self.cube_mat[0][base + 1] = temp2
+        temp1 = self.cube_mat[0][face][0]
+        temp2 = self.cube_mat[1][face][0]
+        self.cube_mat[0][face][0] = self.cube_mat[2][face][0]
+        self.cube_mat[1][face][0] = self.cube_mat[2][face][1]
+        self.cube_mat[2][face][0] = self.cube_mat[2][face][2]
+        self.cube_mat[2][face][1] = self.cube_mat[1][face][2]
+        self.cube_mat[2][face][2] = self.cube_mat[0][face][2]
+        self.cube_mat[1][face][2] = self.cube_mat[0][face][1]
+        self.cube_mat[0][face][2] = temp1
+        self.cube_mat[0][face][1] = temp2
 
     def __copy_row(self, row, face1, face2):
         """Copy a row from face1 to face2. Rows are numbered from 0 to 2."""
-        base1 = face1 * 3
-        base2 = face2 * 3
         for i in range(0, 3):
-            self.cube_mat[row][base2 + i] = self.cube_mat[row][base1 + i]
+            self.cube_mat[row][face2][i] = self.cube_mat[row][face1][i]
 
     def __left_horiz_rot(self, row):
         """Left Horizontal Rotation"""
         front_row = [
-            self.cube_mat[row][0],
-            self.cube_mat[row][1],
-            self.cube_mat[row][2],
+            self.cube_mat[row][F][0],
+            self.cube_mat[row][F][1],
+            self.cube_mat[row][F][2],
         ]
         self.__copy_row(row, R, F)
         self.__copy_row(row, B, R)
         self.__copy_row(row, L, B)
         for i in range(0, 3):
-            self.cube_mat[row][L_START + i] = front_row[i]
+            self.cube_mat[row][L][i] = front_row[i]
 
     def __right_horiz_rot(self, row):
         """Right Horizontal Rotation"""
         front_row = [
-            self.cube_mat[row][0],
-            self.cube_mat[row][1],
-            self.cube_mat[row][2],
+            self.cube_mat[row][F][0],
+            self.cube_mat[row][F][1],
+            self.cube_mat[row][F][2],
         ]
         self.__copy_row(row, L, F)
         self.__copy_row(row, B, L)
         self.__copy_row(row, R, B)
         for i in range(0, 3):
-            self.cube_mat[row][R_START + i] = front_row[i]
+            self.cube_mat[row][R][i] = front_row[i]
 
     def __up_vert_rot(self, col):
         """Up Vertical Rotation"""
         front_col = [
-            self.cube_mat[0][col],
-            self.cube_mat[1][col],
-            self.cube_mat[2][col],
+            self.cube_mat[0][F][col],
+            self.cube_mat[1][F][col],
+            self.cube_mat[2][F][col],
         ]
         for i in range(0, 3):
-            self.cube_mat[i][F_START + col] = self.cube_mat[i][D_START + col]
+            self.cube_mat[i][F][col] = self.cube_mat[i][D][col]
         for i in range(0, 3):
-            self.cube_mat[i][D_START + col] = self.cube_mat[2 - i][B_START + (2 - col)]
+            self.cube_mat[i][D][col] = self.cube_mat[2 - i][B][2 - col]
         for i in range(0, 3):
-            self.cube_mat[i][B_START + (2 - col)] = self.cube_mat[2 - i][U_START + col]
+            self.cube_mat[i][B][2 - col] = self.cube_mat[2 - i][U][col]
         for i in range(0, 3):
-            self.cube_mat[i][U_START + col] = front_col[i]
+            self.cube_mat[i][U][col] = front_col[i]
 
     def __down_vert_rot(self, col):
         """Down Vertical Rotation"""
         front_col = [
-            self.cube_mat[0][col],
-            self.cube_mat[1][col],
-            self.cube_mat[2][col],
+            self.cube_mat[0][F][col],
+            self.cube_mat[1][F][col],
+            self.cube_mat[2][F][col],
         ]
         for i in range(0, 3):
-            self.cube_mat[i][F_START + col] = self.cube_mat[i][U_START + col]
+            self.cube_mat[i][F][col] = self.cube_mat[i][U][col]
         for i in range(0, 3):
-            self.cube_mat[i][U_START + col] = self.cube_mat[2 - i][B_START + (2 - col)]
+            self.cube_mat[i][U][col] = self.cube_mat[2 - i][B][2 - col]
         for i in range(0, 3):
-            self.cube_mat[i][B_START + (2 - col)] = self.cube_mat[2 - i][D_START + col]
+            self.cube_mat[i][B][2 - col] = self.cube_mat[2 - i][D][col]
         for i in range(0, 3):
-            self.cube_mat[i][D_START + col] = front_col[i]
+            self.cube_mat[i][D][col] = front_col[i]
 
     def __c_vert_rot(self, col):
         """Clockwise Vertical Rotation"""
         right_col = [
-            self.cube_mat[0][R_START + col],
-            self.cube_mat[1][R_START + col],
-            self.cube_mat[2][R_START + col],
+            self.cube_mat[0][R][col],
+            self.cube_mat[1][R][col],
+            self.cube_mat[2][R][col],
         ]
         for i in range(0, 3):
-            self.cube_mat[i][R_START + col] = self.cube_mat[2 - col][U_START + i]
+            self.cube_mat[i][R][col] = self.cube_mat[2 - col][U][i]
         for i in range(0, 3):
-            self.cube_mat[2 - col][U_START + i] = self.cube_mat[2 - i][
-                L_START + (2 - col)
-            ]
+            self.cube_mat[2 - col][U][i] = self.cube_mat[2 - i][L][2 - col]
         for i in range(0, 3):
-            self.cube_mat[i][L_START + (2 - col)] = self.cube_mat[col][D_START + i]
+            self.cube_mat[i][L][2 - col] = self.cube_mat[col][D][i]
         for i in range(0, 3):
-            self.cube_mat[col][D_START + i] = right_col[2 - i]
+            self.cube_mat[col][D][i] = right_col[2 - i]
 
     def __cc_vert_rot(self, col):
         """Counter-clockwise Vertical Rotation"""
         right_col = [
-            self.cube_mat[0][R_START + col],
-            self.cube_mat[1][R_START + col],
-            self.cube_mat[2][R_START + col],
+            self.cube_mat[0][R][col],
+            self.cube_mat[1][R][col],
+            self.cube_mat[2][R][col],
         ]
         for i in range(0, 3):
-            self.cube_mat[i][R_START + col] = self.cube_mat[col][D_START + (2 - i)]
+            self.cube_mat[i][R][col] = self.cube_mat[col][D][2 - i]
         for i in range(0, 3):
-            self.cube_mat[col][D_START + i] = self.cube_mat[i][L_START + (2 - col)]
+            self.cube_mat[col][D][i] = self.cube_mat[i][L][2 - col]
         for i in range(0, 3):
-            self.cube_mat[i][L_START + (2 - col)] = self.cube_mat[2 - col][
-                U_START + (2 - i)
-            ]
+            self.cube_mat[i][L][2 - col] = self.cube_mat[2 - col][U][2 - i]
         for i in range(0, 3):
-            self.cube_mat[2 - col][U_START + i] = right_col[i]
+            self.cube_mat[2 - col][U][i] = right_col[i]
 
     # All Rubik's Cube Operations
     def __op_u(self):
@@ -255,9 +243,9 @@ class RCube:
     def reset(self) -> None:
         """Reset Rubik's Cube."""
         self.cube_mat = [
-            [F, F, F, R, R, R, B, B, B, L, L, L, U, U, U, D, D, D],
-            [F, F, F, R, R, R, B, B, B, L, L, L, U, U, U, D, D, D],
-            [F, F, F, R, R, R, B, B, B, L, L, L, U, U, U, D, D, D],
+            [[F, F, F], [R, R, R], [B, B, B], [L, L, L], [U, U, U], [D, D, D]],
+            [[F, F, F], [R, R, R], [B, B, B], [L, L, L], [U, U, U], [D, D, D]],
+            [[F, F, F], [R, R, R], [B, B, B], [L, L, L], [U, U, U], [D, D, D]],
         ]
 
     def calc_fit(self) -> int:
@@ -269,8 +257,9 @@ class RCube:
         """
         fitness = 0
         for i in range(0, 3):
-            for j in range(0, 18):
-                fitness += int(self.cube_mat[i][j] == math.floor(j / 3))
+            for j in range(0, 6):
+                for k in range(3):
+                    fitness += int(self.cube_mat[i][j][k] == j)
         return fitness
 
     def rotate(self, op: str) -> None:
@@ -299,11 +288,13 @@ class RCube:
 
     def print_colors(self) -> None:
         """Print cube to standard output with ANSI colors."""
-        for i in range(0, 3):
-            for j in range(0, 18):
-                print(
-                    COLOR_MAP[self.cube_mat[i][j]] + str(self.cube_mat[i][j]), end=" "
-                )
+        for i in range(3):
+            for j in range(6):
+                for k in range(3):
+                    print(
+                        COLOR_MAP[self.cube_mat[i][j][k]] + str(self.cube_mat[i][j][k]),
+                        end=" ",
+                    )
             print()
         print(RESET_COLOR)
 
