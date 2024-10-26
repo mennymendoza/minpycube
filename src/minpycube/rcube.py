@@ -70,42 +70,27 @@ class RCube:
 
     def __copy_row(self, row, face1, face2):
         """Copy a row from face1 to face2. Rows are numbered from 0 to 2."""
-        for i in range(0, 3):
-            self.cube_mat[row][face2][i] = self.cube_mat[row][face1][i]
+        self.cube_mat[row][face2] = self.cube_mat[row][face1]
 
     def __left_horiz_rot(self, row):
         """Left Horizontal Rotation"""
-        front_row = [
-            self.cube_mat[row][F][0],
-            self.cube_mat[row][F][1],
-            self.cube_mat[row][F][2],
-        ]
+        front_row = self.cube_mat[row][F]
         self.__copy_row(row, R, F)
         self.__copy_row(row, B, R)
         self.__copy_row(row, L, B)
-        for i in range(0, 3):
-            self.cube_mat[row][L][i] = front_row[i]
+        self.cube_mat[row][L] = front_row
 
     def __right_horiz_rot(self, row):
         """Right Horizontal Rotation"""
-        front_row = [
-            self.cube_mat[row][F][0],
-            self.cube_mat[row][F][1],
-            self.cube_mat[row][F][2],
-        ]
+        front_row = self.cube_mat[row][F]
         self.__copy_row(row, L, F)
         self.__copy_row(row, B, L)
         self.__copy_row(row, R, B)
-        for i in range(0, 3):
-            self.cube_mat[row][R][i] = front_row[i]
+        self.cube_mat[row][R] = front_row
 
     def __up_vert_rot(self, col):
         """Up Vertical Rotation"""
-        front_col = [
-            self.cube_mat[0][F][col],
-            self.cube_mat[1][F][col],
-            self.cube_mat[2][F][col],
-        ]
+        front_col = [self.cube_mat[i][F][col] for i in range(3)]
         for i in range(0, 3):
             self.cube_mat[i][F][col] = self.cube_mat[i][D][col]
         for i in range(0, 3):
@@ -117,11 +102,7 @@ class RCube:
 
     def __down_vert_rot(self, col):
         """Down Vertical Rotation"""
-        front_col = [
-            self.cube_mat[0][F][col],
-            self.cube_mat[1][F][col],
-            self.cube_mat[2][F][col],
-        ]
+        front_col = [self.cube_mat[i][F][col] for i in range(3)]
         for i in range(0, 3):
             self.cube_mat[i][F][col] = self.cube_mat[i][U][col]
         for i in range(0, 3):
@@ -133,11 +114,7 @@ class RCube:
 
     def __c_vert_rot(self, col):
         """Clockwise Vertical Rotation"""
-        right_col = [
-            self.cube_mat[0][R][col],
-            self.cube_mat[1][R][col],
-            self.cube_mat[2][R][col],
-        ]
+        right_col = [self.cube_mat[i][R][col] for i in range(3)]
         for i in range(0, 3):
             self.cube_mat[i][R][col] = self.cube_mat[2 - col][U][i]
         for i in range(0, 3):
@@ -149,11 +126,7 @@ class RCube:
 
     def __cc_vert_rot(self, col):
         """Counter-clockwise Vertical Rotation"""
-        right_col = [
-            self.cube_mat[0][R][col],
-            self.cube_mat[1][R][col],
-            self.cube_mat[2][R][col],
-        ]
+        right_col = [self.cube_mat[i][R][col] for i in range(3)]
         for i in range(0, 3):
             self.cube_mat[i][R][col] = self.cube_mat[col][D][2 - i]
         for i in range(0, 3):
