@@ -1,5 +1,3 @@
-import math
-
 # Faces
 F = 0
 R = 1
@@ -7,14 +5,6 @@ B = 2
 L = 3
 U = 4
 D = 5
-
-# Column indices
-F_START = F * 3
-R_START = R * 3
-B_START = B * 3
-L_START = L * 3
-U_START = U * 3
-D_START = D * 3
 
 # Colors
 COLOR_MAP = {
