@@ -7,7 +7,7 @@ U = 4
 D = 5
 
 # Colors
-COLOR_MAP = [
+COLORS = [
     "\033[31m",
     "\033[33m",
     "\033[35m",
@@ -199,6 +199,15 @@ class RCube:
     def __op_s_reverse(self):
         self.__cc_vert_rot(1)
 
+    def __print_face(self, face) -> None:
+        for i in range(3):
+            for j in range(3):
+                print(
+                    COLORS[self.cube_mat[i][face][j]] + str(self.cube_mat[i][face][j]),
+                    end=" ",
+                )
+            print()
+
     def reset(self) -> None:
         """Reset Rubik's Cube."""
         self.cube_mat = [
@@ -247,14 +256,17 @@ class RCube:
 
     def print_colors(self) -> None:
         """Print cube to standard output with ANSI colors."""
+        self.__print_face(U)
         for i in range(3):
-            for j in range(6):
+            for face in [F, R, B, L]:
                 for k in range(3):
                     print(
-                        COLORS[self.cube_mat[i][j][k]] + str(self.cube_mat[i][j][k]),
+                        COLORS[self.cube_mat[i][face][k]]
+                        + str(self.cube_mat[i][face][k]),
                         end=" ",
                     )
             print()
+        self.__print_face(D)
         print(RESET_COLOR)
 
     @staticmethod
