@@ -68,24 +68,20 @@ class RCube:
         self.cube_mat[0][face][2] = temp1
         self.cube_mat[0][face][1] = temp2
 
-    def __copy_row(self, row, face1, face2):
-        """Copy a row from face1 to face2. Rows are numbered from 0 to 2."""
-        self.cube_mat[row][face2] = self.cube_mat[row][face1]
-
     def __left_horiz_rot(self, row):
         """Left Horizontal Rotation"""
         front_row = self.cube_mat[row][F]
-        self.__copy_row(row, R, F)
-        self.__copy_row(row, B, R)
-        self.__copy_row(row, L, B)
+        self.cube_mat[row][F] = self.cube_mat[row][R]
+        self.cube_mat[row][R] = self.cube_mat[row][B]
+        self.cube_mat[row][B] = self.cube_mat[row][L]
         self.cube_mat[row][L] = front_row
 
     def __right_horiz_rot(self, row):
         """Right Horizontal Rotation"""
         front_row = self.cube_mat[row][F]
-        self.__copy_row(row, L, F)
-        self.__copy_row(row, B, L)
-        self.__copy_row(row, R, B)
+        self.cube_mat[row][F] = self.cube_mat[row][L]
+        self.cube_mat[row][L] = self.cube_mat[row][B]
+        self.cube_mat[row][B] = self.cube_mat[row][R]
         self.cube_mat[row][R] = front_row
 
     def __up_vert_rot(self, col):
