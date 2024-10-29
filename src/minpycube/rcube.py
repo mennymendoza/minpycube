@@ -7,14 +7,14 @@ U = 4
 D = 5
 
 # Colors
-COLOR_MAP = {
-    F: "\033[31m",
-    R: "\033[33m",
-    B: "\033[35m",
-    L: "\033[37m",
-    U: "\033[34m",
-    D: "\033[32m",
-}
+COLOR_MAP = [
+    "\033[31m",
+    "\033[33m",
+    "\033[35m",
+    "\033[37m",
+    "\033[34m",
+    "\033[32m",
+]
 RESET_COLOR = "\033[00m"
 
 
@@ -251,7 +251,7 @@ class RCube:
             for j in range(6):
                 for k in range(3):
                     print(
-                        COLOR_MAP[self.cube_mat[i][j][k]] + str(self.cube_mat[i][j][k]),
+                        COLORS[self.cube_mat[i][j][k]] + str(self.cube_mat[i][j][k]),
                         end=" ",
                     )
             print()
