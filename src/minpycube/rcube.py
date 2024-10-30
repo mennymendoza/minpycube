@@ -1,3 +1,5 @@
+import array
+
 # Faces
 F = 0
 R = 1
@@ -224,10 +226,12 @@ class RCube:
         :rtype: int
         """
         fitness = 0
-        for i in range(0, 3):
-            for j in range(0, 6):
-                for k in range(3):
-                    fitness += int(self.cube_mat[i][j][k] == j)
+        for face in range(6):
+            dist = [0] * 9
+            for i in range(3):
+                for j in range(3):
+                    dist[self.cube_mat[i][face][j]] += 1
+            fitness += max(dist)
         return fitness
 
     def rotate(self, op: str) -> None:
