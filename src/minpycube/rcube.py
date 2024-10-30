@@ -1,5 +1,3 @@
-import array
-
 # Faces
 F = 0
 R = 1
