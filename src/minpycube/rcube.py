@@ -87,49 +87,49 @@ class RCube:
     def __up_vert_rot(self, col: int) -> None:
         """Up Vertical Rotation"""
         front_col = [self.cube_mat[i][F][col] for i in range(3)]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][F][col] = self.cube_mat[i][D][col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][D][col] = self.cube_mat[2 - i][B][2 - col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][B][2 - col] = self.cube_mat[2 - i][U][col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][U][col] = front_col[i]
 
     def __down_vert_rot(self, col: int) -> None:
         """Down Vertical Rotation"""
         front_col = [self.cube_mat[i][F][col] for i in range(3)]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][F][col] = self.cube_mat[i][U][col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][U][col] = self.cube_mat[2 - i][B][2 - col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][B][2 - col] = self.cube_mat[2 - i][D][col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][D][col] = front_col[i]
 
     def __c_vert_rot(self, col: int) -> None:
         """Clockwise Vertical Rotation"""
         right_col = [self.cube_mat[i][R][col] for i in range(3)]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][R][col] = self.cube_mat[2 - col][U][i]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[2 - col][U][i] = self.cube_mat[2 - i][L][2 - col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][L][2 - col] = self.cube_mat[col][D][i]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[col][D][i] = right_col[2 - i]
 
     def __cc_vert_rot(self, col: int) -> None:
         """Counter-clockwise Vertical Rotation"""
         right_col = [self.cube_mat[i][R][col] for i in range(3)]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][R][col] = self.cube_mat[col][D][2 - i]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[col][D][i] = self.cube_mat[i][L][2 - col]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[i][L][2 - col] = self.cube_mat[2 - col][U][2 - i]
-        for i in range(0, 3):
+        for i in range(3):
             self.cube_mat[2 - col][U][i] = right_col[i]
 
     # All Rubik's Cube Operations
