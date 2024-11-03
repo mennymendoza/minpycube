@@ -16,10 +16,12 @@ def test_run_list():
     c = RCube()
     all_ops = list(c.op_function_map.keys())
     ops = [random.choice(all_ops) for _ in range(20)]
-    c.run_list(ops)
+    for op in ops:
+        c.rotate(op)
     ops.reverse()
     ops = list(map(RCube.invert_op, ops))
-    c.run_list(ops)
+    for op in ops:
+        c.rotate(op)
     assert c.calc_fit() == 54
 
 

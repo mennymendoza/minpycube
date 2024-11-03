@@ -244,18 +244,6 @@ class RCube:
             return
         self.op_function_map[op]()
 
-    def run_list(self, op_list: list[str]) -> int:
-        """Run a list of operations and return the fitness of the final state.
-
-        :param op_list: List of Rubik's Cube operations, represented as a list of strings in standard move notation.
-        :type op_list: list[str]
-        :return: Fitness of the Rubik's Cube.
-        :rtype: int
-        """
-        for op in op_list:
-            self.rotate(op)
-        return self.calc_fit()
-
     def print_colors(self) -> None:
         """Print cube to standard output with ANSI colors."""
         self.__print_face(U)
