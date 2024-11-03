@@ -225,7 +225,7 @@ class RCube:
         """
         fitness = 0
         for face in range(6):
-            dist = [0] * 9
+            dist = [0] * 6
             for i in range(3):
                 for j in range(3):
                     dist[self.cube_mat[i][face][j]] += 1
