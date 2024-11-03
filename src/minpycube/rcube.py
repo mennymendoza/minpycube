@@ -19,7 +19,7 @@ RESET_COLOR = "\033[00m"
 
 
 class RCube:
-    def __init__(self):
+    def __init__(self) -> None:
         self.reset()
         self.op_function_map = {
             "U": self.__op_u,
@@ -42,7 +42,7 @@ class RCube:
             "-S": self.__op_s_reverse,
         }
 
-    def __rotatef_cc(self, face):
+    def __rotatef_cc(self, face: int) -> None:
         """Rotate Face Counter-Clockwise"""
         temp1 = self.cube_mat[0][face][0]
         temp2 = self.cube_mat[0][face][1]
@@ -55,7 +55,7 @@ class RCube:
         self.cube_mat[2][face][0] = temp1
         self.cube_mat[1][face][0] = temp2
 
-    def __rotatef_c(self, face):
+    def __rotatef_c(self, face: int) -> None:
         """Rotate Face Clockwise"""
         temp1 = self.cube_mat[0][face][0]
         temp2 = self.cube_mat[1][face][0]
@@ -68,7 +68,7 @@ class RCube:
         self.cube_mat[0][face][2] = temp1
         self.cube_mat[0][face][1] = temp2
 
-    def __left_horiz_rot(self, row):
+    def __left_horiz_rot(self, row: int) -> None:
         """Left Horizontal Rotation"""
         front_row = self.cube_mat[row][F]
         self.cube_mat[row][F] = self.cube_mat[row][R]
@@ -76,7 +76,7 @@ class RCube:
         self.cube_mat[row][B] = self.cube_mat[row][L]
         self.cube_mat[row][L] = front_row
 
-    def __right_horiz_rot(self, row):
+    def __right_horiz_rot(self, row: int) -> None:
         """Right Horizontal Rotation"""
         front_row = self.cube_mat[row][F]
         self.cube_mat[row][F] = self.cube_mat[row][L]
@@ -84,7 +84,7 @@ class RCube:
         self.cube_mat[row][B] = self.cube_mat[row][R]
         self.cube_mat[row][R] = front_row
 
-    def __up_vert_rot(self, col):
+    def __up_vert_rot(self, col: int) -> None:
         """Up Vertical Rotation"""
         front_col = [self.cube_mat[i][F][col] for i in range(3)]
         for i in range(0, 3):
@@ -96,7 +96,7 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[i][U][col] = front_col[i]
 
-    def __down_vert_rot(self, col):
+    def __down_vert_rot(self, col: int) -> None:
         """Down Vertical Rotation"""
         front_col = [self.cube_mat[i][F][col] for i in range(3)]
         for i in range(0, 3):
@@ -108,7 +108,7 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[i][D][col] = front_col[i]
 
-    def __c_vert_rot(self, col):
+    def __c_vert_rot(self, col: int) -> None:
         """Clockwise Vertical Rotation"""
         right_col = [self.cube_mat[i][R][col] for i in range(3)]
         for i in range(0, 3):
@@ -120,7 +120,7 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[col][D][i] = right_col[2 - i]
 
-    def __cc_vert_rot(self, col):
+    def __cc_vert_rot(self, col: int) -> None:
         """Counter-clockwise Vertical Rotation"""
         right_col = [self.cube_mat[i][R][col] for i in range(3)]
         for i in range(0, 3):
@@ -133,73 +133,73 @@ class RCube:
             self.cube_mat[2 - col][U][i] = right_col[i]
 
     # All Rubik's Cube Operations
-    def __op_u(self):
+    def __op_u(self) -> None:
         self.__rotatef_c(U)
         self.__left_horiz_rot(0)
 
-    def __op_u_reverse(self):
+    def __op_u_reverse(self) -> None:
         self.__rotatef_cc(U)
         self.__right_horiz_rot(0)
 
-    def __op_e(self):
+    def __op_e(self) -> None:
         self.__right_horiz_rot(1)
 
-    def __op_e_reverse(self):
+    def __op_e_reverse(self) -> None:
         self.__left_horiz_rot(1)
 
-    def __op_d(self):
+    def __op_d(self) -> None:
         self.__rotatef_c(D)
         self.__right_horiz_rot(2)
 
-    def __op_d_reverse(self):
+    def __op_d_reverse(self) -> None:
         self.__rotatef_cc(D)
         self.__left_horiz_rot(2)
 
-    def __op_r(self):
+    def __op_r(self) -> None:
         self.__rotatef_c(R)
         self.__up_vert_rot(2)
 
-    def __op_r_reverse(self):
+    def __op_r_reverse(self) -> None:
         self.__rotatef_cc(R)
         self.__down_vert_rot(2)
 
-    def __op_l(self):
+    def __op_l(self) -> None:
         self.__rotatef_c(L)
         self.__down_vert_rot(0)
 
-    def __op_l_reverse(self):
+    def __op_l_reverse(self) -> None:
         self.__rotatef_cc(L)
         self.__up_vert_rot(0)
 
-    def __op_m(self):
+    def __op_m(self) -> None:
         self.__down_vert_rot(1)
 
-    def __op_m_reverse(self):
+    def __op_m_reverse(self) -> None:
         self.__up_vert_rot(1)
 
-    def __op_f(self):
+    def __op_f(self) -> None:
         self.__rotatef_c(F)
         self.__c_vert_rot(0)
 
-    def __op_f_reverse(self):
+    def __op_f_reverse(self) -> None:
         self.__rotatef_cc(F)
         self.__cc_vert_rot(0)
 
-    def __op_b(self):
+    def __op_b(self) -> None:
         self.__rotatef_c(B)
         self.__cc_vert_rot(2)
 
-    def __op_b_reverse(self):
+    def __op_b_reverse(self) -> None:
         self.__rotatef_cc(B)
         self.__c_vert_rot(2)
 
-    def __op_s(self):
+    def __op_s(self) -> None:
         self.__c_vert_rot(1)
 
-    def __op_s_reverse(self):
+    def __op_s_reverse(self) -> None:
         self.__cc_vert_rot(1)
 
-    def __print_face(self, face) -> None:
+    def __print_face(self, face: int) -> None:
         for i in range(3):
             for j in range(3):
                 print(
