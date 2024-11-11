@@ -252,10 +252,10 @@ class RCube:
         self.__print_face(U)
         for i in range(3):
             for face in [F, R, B, L]:
-                for k in range(3):
+                for j in range(3):
                     print(
-                        COLORS[self.cube_mat[face][i][k]]
-                        + str(self.cube_mat[face][i][k]),
+                        COLORS[self.cube_mat[face][i][j]]
+                        + str(self.cube_mat[face][i][j]),
                         end=" ",
                     )
             print()
