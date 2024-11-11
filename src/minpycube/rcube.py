@@ -211,9 +211,12 @@ class RCube:
     def reset(self) -> None:
         """Reset Rubik's Cube."""
         self.cube_mat = [
-            [[F, F, F], [R, R, R], [B, B, B], [L, L, L], [U, U, U], [D, D, D]],
-            [[F, F, F], [R, R, R], [B, B, B], [L, L, L], [U, U, U], [D, D, D]],
-            [[F, F, F], [R, R, R], [B, B, B], [L, L, L], [U, U, U], [D, D, D]],
+            [[F, F, F], [F, F, F], [F, F, F]],
+            [[R, R, R], [R, R, R], [R, R, R]],
+            [[B, B, B], [B, B, B], [B, B, B]],
+            [[L, L, L], [L, L, L], [L, L, L]],
+            [[U, U, U], [U, U, U], [U, U, U]],
+            [[D, D, D], [D, D, D], [D, D, D]],
         ]
 
     def calc_fit(self) -> int:
