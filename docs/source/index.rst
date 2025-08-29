@@ -1,7 +1,7 @@
-.. Compaction Simulation documentation master file, created by
+.. Rubik's Cube Solver documentation master file, created by
    sphinx-quickstart on Thu Oct 10 18:38:37 2024.
 
-Compaction Simulation documentation
+Rubik's Cube Solver documentation
 =================================
 
 .. toctree::
@@ -11,3 +11,4 @@ Compaction Simulation documentation
    introduction
    installation
    usage
+   minpycube
