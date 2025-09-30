@@ -3,6 +3,11 @@ A minimal Python library for Rubik's Cube simulation with no dependencies.
 
 ## Installation
 ```bash
+uv add minpycube
+```
+
+Or with pip:
+```bash
 pip install minpycube
 ```
 
